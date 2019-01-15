@@ -1,0 +1,633 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Twitter\_Sentiment\_Analysis ipynb}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \subsection{Twitter Sentiment
+Analysis}\label{twitter-sentiment-analysis}
+
+Determining whether a piece of writing is positive, negative or neutral.
+It's also known as opinion mining, deriving the opinion or attitude of a
+speaker.
+
+conda install -n py36 -c conda-forge tweepy conda install -n py36 -c
+conda-forge textblob
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{tweepy}           \PY{c+c1}{\PYZsh{} To consume Twitter\PYZsq{}s API}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}     \PY{c+c1}{\PYZsh{} To handle data}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}      \PY{c+c1}{\PYZsh{} For number computing}
+        
+        \PY{c+c1}{\PYZsh{} For plotting and visualization:}
+        \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{display}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{} Twitter App access keys for @user}
+        
+        \PY{c+c1}{\PYZsh{} Consume:}
+        \PY{n}{CONSUMER\PYZus{}KEY}    \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hqxUB6fhHZMOcQnPf4jQVojCu}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{CONSUMER\PYZus{}SECRET} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cyi0bCA5tVzRLNsfqV3usGAgPO66PmbHielOCi33F4j48pQ2bf}\PY{l+s+s1}{\PYZsq{}}
+        
+        \PY{c+c1}{\PYZsh{} Access:}
+        \PY{n}{ACCESS\PYZus{}TOKEN}  \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{3896792723\PYZhy{}i8Yj9tMYYp5TDs4qi41uk8jgH3rqHYQDAKZr2tY}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{ACCESS\PYZus{}SECRET} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DAIkFnwc8KSIukHDPALL3jqxAotJoKXbAzAEPm7ZXpnaH}\PY{l+s+s1}{\PYZsq{}}
+        
+        \PY{c+c1}{\PYZsh{} We import our access keys:}
+        \PY{c+c1}{\PYZsh{} optional from credentials import *    \PYZsh{} This will allow us to use the keys as variables}
+        
+        \PY{c+c1}{\PYZsh{} API\PYZsq{}s setup:}
+        \PY{k}{def} \PY{n+nf}{twitter\PYZus{}setup}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{    Utility function to setup the Twitter\PYZsq{}s API}
+        \PY{l+s+sd}{    with our access keys provided.}
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{c+c1}{\PYZsh{} Authentication and access using keys:}
+            \PY{n}{auth} \PY{o}{=} \PY{n}{tweepy}\PY{o}{.}\PY{n}{OAuthHandler}\PY{p}{(}\PY{n}{CONSUMER\PYZus{}KEY}\PY{p}{,} \PY{n}{CONSUMER\PYZus{}SECRET}\PY{p}{)}
+            \PY{n}{auth}\PY{o}{.}\PY{n}{set\PYZus{}access\PYZus{}token}\PY{p}{(}\PY{n}{ACCESS\PYZus{}TOKEN}\PY{p}{,} \PY{n}{ACCESS\PYZus{}SECRET}\PY{p}{)}
+        
+            \PY{c+c1}{\PYZsh{} Return API with authentication:}
+            \PY{n}{api} \PY{o}{=} \PY{n}{tweepy}\PY{o}{.}\PY{n}{API}\PY{p}{(}\PY{n}{auth}\PY{p}{)}
+            \PY{k}{return} \PY{n}{api}
+\end{Verbatim}
+
+
+    Code for extracting from Twitter
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} We create an extractor object:}
+        \PY{n}{extractor} \PY{o}{=} \PY{n}{twitter\PYZus{}setup}\PY{p}{(}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} We create a tweet list as follows:}
+        \PY{c+c1}{\PYZsh{} tweets = extractor.user\PYZus{}timeline(screen\PYZus{}name=\PYZdq{}realDonaldTrump\PYZdq{}, count=200)}
+        
+        \PY{c+c1}{\PYZsh{}\PYZsh{} search by hashtab}
+        \PY{n}{tweets} \PY{o}{=} \PY{n}{extractor}\PY{o}{.}\PY{n}{user\PYZus{}timeline}\PY{p}{(}\PY{n}{screen\PYZus{}name}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{realDonaldTrump}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{count}\PY{o}{=}\PY{l+m+mi}{500}\PY{p}{)} 
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Number of tweets extracted: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{.}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{tweets}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} We print the most recent 5 tweets:}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{5 recent tweets:}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{k}{for} \PY{n}{tweet} \PY{o+ow}{in} \PY{n}{tweets}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{tweet}\PY{o}{.}\PY{n}{text}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Number of tweets extracted: 200.
+
+5 recent tweets:
+
+When I took the Oath of Office{\ldots} https://t.co/GDhIqteKpv
+
+We lose 300 Americans a week, 90\% of which comes through the Southern Border. These numbers will be DRASTICALLY REDUCED if we have a Wall!
+
+Will be interviewed at the Border by @seanhannity on @FoxNews tonight at 9:00. Enjoy!
+
+Dear Diary{\ldots} https://t.co/NAuMaQW6fl
+
+From the Southern Border{\ldots} https://t.co/Vgsf5nEZUH
+
+
+    \end{Verbatim}
+
+    \paragraph{Creating a (pandas)
+DataFrame}\label{creating-a-pandas-dataframe}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} We create a pandas dataframe as follows:}
+        \PY{n}{data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{p}{[}\PY{n}{tweet}\PY{o}{.}\PY{n}{text} \PY{k}{for} \PY{n}{tweet} \PY{o+ow}{in} \PY{n}{tweets}\PY{p}{]}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tweets}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} We display the first 10 elements of the dataframe:}
+        \PY{n}{display}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+                                              Tweets
+0  When I took the Oath of Office.... https://t.c...
+1  We lose 300 Americans a week, 90% of which com...
+2  Will be interviewed at the Border by @seanhann...
+3              Dear Diary... https://t.co/NAuMaQW6fl
+4  From the Southern Border.... https://t.co/Vgsf...
+5  RT @SenateGOP: Why do we need border security?...
+6  Because of the Democrats intransigence on Bord...
+7  President Obama, thank you for your great supp...
+8                          MAKE AMERICA GREAT AGAIN!
+9  Getting ready to leave for the Great State of ...
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} Internal methods of a single tweet object:}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{dir}\PY{p}{(}\PY{n}{tweets}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+['\_\_class\_\_', '\_\_delattr\_\_', '\_\_dict\_\_', '\_\_dir\_\_', '\_\_doc\_\_', '\_\_eq\_\_', '\_\_format\_\_', '\_\_ge\_\_', '\_\_getattribute\_\_', '\_\_getstate\_\_', '\_\_gt\_\_', '\_\_hash\_\_', '\_\_init\_\_', '\_\_init\_subclass\_\_', '\_\_le\_\_', '\_\_lt\_\_', '\_\_module\_\_', '\_\_ne\_\_', '\_\_new\_\_', '\_\_reduce\_\_', '\_\_reduce\_ex\_\_', '\_\_repr\_\_', '\_\_setattr\_\_', '\_\_sizeof\_\_', '\_\_str\_\_', '\_\_subclasshook\_\_', '\_\_weakref\_\_', '\_api', '\_json', 'author', 'contributors', 'coordinates', 'created\_at', 'destroy', 'entities', 'extended\_entities', 'favorite', 'favorite\_count', 'favorited', 'geo', 'id', 'id\_str', 'in\_reply\_to\_screen\_name', 'in\_reply\_to\_status\_id', 'in\_reply\_to\_status\_id\_str', 'in\_reply\_to\_user\_id', 'in\_reply\_to\_user\_id\_str', 'is\_quote\_status', 'lang', 'parse', 'parse\_list', 'place', 'possibly\_sensitive', 'retweet', 'retweet\_count', 'retweeted', 'retweets', 'source', 'source\_url', 'text', 'truncated', 'user']
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} We print info from the first tweet:}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{tweets}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{id}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{tweets}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{created\PYZus{}at}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{tweets}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{source}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{tweets}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{favorite\PYZus{}count}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{tweets}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{retweet\PYZus{}count}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{tweets}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{geo}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{tweets}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{coordinates}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{tweets}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{entities}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+1083554843627868160
+2019-01-11 02:43:00
+Twitter for iPhone
+21289
+6626
+None
+None
+\{'hashtags': [], 'symbols': [], 'user\_mentions': [], 'urls': [], 'media': [\{'id': 1083554750971502594, 'id\_str': '1083554750971502594', 'indices': [35, 58], 'media\_url': 'http://pbs.twimg.com/ext\_tw\_video\_thumb/1083554750971502594/pu/img/V0LLiT7QdWwlLekH.jpg', 'media\_url\_https': 'https://pbs.twimg.com/ext\_tw\_video\_thumb/1083554750971502594/pu/img/V0LLiT7QdWwlLekH.jpg', 'url': 'https://t.co/GDhIqteKpv', 'display\_url': 'pic.twitter.com/GDhIqteKpv', 'expanded\_url': 'https://twitter.com/realDonaldTrump/status/1083554843627868160/video/1', 'type': 'photo', 'sizes': \{'thumb': \{'w': 150, 'h': 150, 'resize': 'crop'\}, 'medium': \{'w': 1200, 'h': 675, 'resize': 'fit'\}, 'small': \{'w': 680, 'h': 383, 'resize': 'fit'\}, 'large': \{'w': 1280, 'h': 720, 'resize': 'fit'\}\}\}]\}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} We add relevant data:}
+        \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{len}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}  \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n+nb}{len}\PY{p}{(}\PY{n}{tweet}\PY{o}{.}\PY{n}{text}\PY{p}{)} \PY{k}{for} \PY{n}{tweet} \PY{o+ow}{in} \PY{n}{tweets}\PY{p}{]}\PY{p}{)}
+        \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ID}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}   \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{tweet}\PY{o}{.}\PY{n}{id} \PY{k}{for} \PY{n}{tweet} \PY{o+ow}{in} \PY{n}{tweets}\PY{p}{]}\PY{p}{)}
+        \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{tweet}\PY{o}{.}\PY{n}{created\PYZus{}at} \PY{k}{for} \PY{n}{tweet} \PY{o+ow}{in} \PY{n}{tweets}\PY{p}{]}\PY{p}{)}
+        \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Source}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{tweet}\PY{o}{.}\PY{n}{source} \PY{k}{for} \PY{n}{tweet} \PY{o+ow}{in} \PY{n}{tweets}\PY{p}{]}\PY{p}{)}
+        \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Likes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}  \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{tweet}\PY{o}{.}\PY{n}{favorite\PYZus{}count} \PY{k}{for} \PY{n}{tweet} \PY{o+ow}{in} \PY{n}{tweets}\PY{p}{]}\PY{p}{)}
+        \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RTs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}    \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{tweet}\PY{o}{.}\PY{n}{retweet\PYZus{}count} \PY{k}{for} \PY{n}{tweet} \PY{o+ow}{in} \PY{n}{tweets}\PY{p}{]}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} Display of first 10 elements from dataframe:}
+        \PY{n}{display}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+                                              Tweets  len  \
+0  When I took the Oath of Office.... https://t.c...   58   
+1  We lose 300 Americans a week, 90% of which com...  138   
+2  Will be interviewed at the Border by @seanhann...   85   
+3              Dear Diary... https://t.co/NAuMaQW6fl   37   
+4  From the Southern Border.... https://t.co/Vgsf...   52   
+5  RT @SenateGOP: Why do we need border security?...  121   
+6  Because of the Democrats intransigence on Bord...  140   
+7  President Obama, thank you for your great supp...  110   
+8                          MAKE AMERICA GREAT AGAIN!   25   
+9  Getting ready to leave for the Great State of ...   58   
+
+                    ID                Date              Source   Likes    RTs  
+0  1083554843627868160 2019-01-11 02:43:00  Twitter for iPhone   21289   6626  
+1  1083554782923632640 2019-01-11 02:42:46  Twitter for iPhone   22527   5646  
+2  1083540470570143750 2019-01-11 01:45:54  Twitter for iPhone   28842   6368  
+3  1083531644785455104 2019-01-11 01:10:49  Twitter for iPhone   80878  23169  
+4  1083493944527249408 2019-01-10 22:41:01  Twitter for iPhone   82804  23448  
+5  1083427505736839168 2019-01-10 18:17:01  Twitter for iPhone       0  16768  
+6  1083426878336036865 2019-01-10 18:14:31  Twitter for iPhone   71977  17373  
+7  1083404900862545920 2019-01-10 16:47:11  Twitter for iPhone  135139  44130  
+8  1083358775925460992 2019-01-10 13:43:54  Twitter for iPhone  162223  36102  
+9  1083358611315789826 2019-01-10 13:43:15  Twitter for iPhone   85916  13776  
+    \end{verbatim}
+
+    
+    \subsubsection{Visualization and basic
+statistics}\label{visualization-and-basic-statistics}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{} We extract the mean of lenghts:}
+        \PY{n}{mean} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{len}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The lenght}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{s average in tweets: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{mean}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The lenght's average in tweets: 124.05
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{} We create time series for data:}
+        
+        \PY{n}{tlen} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{len}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n}{tfav} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Likes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n}{tret} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RTs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{} Lenghts along time:}
+         \PY{n}{tlen}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_13_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{} Likes vs retweets visualization:}
+         \PY{n}{tfav}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Likes}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{legend}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{tret}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Retweets}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{legend}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Sentimental Analysis}\label{sentimental-analysis}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{k+kn}{from} \PY{n+nn}{textblob} \PY{k}{import} \PY{n}{TextBlob}
+         \PY{k+kn}{import} \PY{n+nn}{re}
+         
+         \PY{k}{def} \PY{n+nf}{clean\PYZus{}tweet}\PY{p}{(}\PY{n}{tweet}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{    Utility function to clean the text in a tweet by removing }
+         \PY{l+s+sd}{    links and special characters using regex.}
+         \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+             \PY{k}{return} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{re}\PY{o}{.}\PY{n}{sub}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{(@[A\PYZhy{}Za\PYZhy{}z0\PYZhy{}9]+)|([\PYZca{}0\PYZhy{}9A\PYZhy{}Za\PYZhy{}z }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{])|(}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{w+:}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{/}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{/}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{S+)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{tweet}\PY{p}{)}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{analize\PYZus{}sentiment}\PY{p}{(}\PY{n}{tweet}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{    Utility function to classify the polarity of a tweet}
+         \PY{l+s+sd}{    using textblob.}
+         \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+             \PY{n}{analysis} \PY{o}{=} \PY{n}{TextBlob}\PY{p}{(}\PY{n}{clean\PYZus{}tweet}\PY{p}{(}\PY{n}{tweet}\PY{p}{)}\PY{p}{)}
+             \PY{k}{if} \PY{n}{analysis}\PY{o}{.}\PY{n}{sentiment}\PY{o}{.}\PY{n}{polarity} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{:}
+                 \PY{k}{return} \PY{l+m+mi}{1}
+             \PY{k}{elif} \PY{n}{analysis}\PY{o}{.}\PY{n}{sentiment}\PY{o}{.}\PY{n}{polarity} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                 \PY{k}{return} \PY{l+m+mi}{0}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{k}{return} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{} We create a column with the result of the analysis:}
+         \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[} \PY{n}{analize\PYZus{}sentiment}\PY{p}{(}\PY{n}{tweet}\PY{p}{)} \PY{k}{for} \PY{n}{tweet} \PY{o+ow}{in} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tweets}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} We display the updated dataframe with the new column:}
+         \PY{n}{display}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+                                              Tweets  len  \
+0  When I took the Oath of Office.... https://t.c...   58   
+1  We lose 300 Americans a week, 90% of which com...  138   
+2  Will be interviewed at the Border by @seanhann...   85   
+3              Dear Diary... https://t.co/NAuMaQW6fl   37   
+4  From the Southern Border.... https://t.co/Vgsf...   52   
+5  RT @SenateGOP: Why do we need border security?...  121   
+6  Because of the Democrats intransigence on Bord...  140   
+7  President Obama, thank you for your great supp...  110   
+8                          MAKE AMERICA GREAT AGAIN!   25   
+9  Getting ready to leave for the Great State of ...   58   
+
+                    ID                Date              Source   Likes    RTs  \
+0  1083554843627868160 2019-01-11 02:43:00  Twitter for iPhone   21289   6626   
+1  1083554782923632640 2019-01-11 02:42:46  Twitter for iPhone   22527   5646   
+2  1083540470570143750 2019-01-11 01:45:54  Twitter for iPhone   28842   6368   
+3  1083531644785455104 2019-01-11 01:10:49  Twitter for iPhone   80878  23169   
+4  1083493944527249408 2019-01-10 22:41:01  Twitter for iPhone   82804  23448   
+5  1083427505736839168 2019-01-10 18:17:01  Twitter for iPhone       0  16768   
+6  1083426878336036865 2019-01-10 18:14:31  Twitter for iPhone   71977  17373   
+7  1083404900862545920 2019-01-10 16:47:11  Twitter for iPhone  135139  44130   
+8  1083358775925460992 2019-01-10 13:43:54  Twitter for iPhone  162223  36102   
+9  1083358611315789826 2019-01-10 13:43:15  Twitter for iPhone   85916  13776   
+
+   SA  
+0   0  
+1   0  
+2   1  
+3   0  
+4   0  
+5   0  
+6   1  
+7   1  
+8   1  
+9   1  
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{} We construct lists with classified tweets:}
+         
+         \PY{n}{pos\PYZus{}tweets} \PY{o}{=} \PY{p}{[} \PY{n}{tweet} \PY{k}{for} \PY{n}{index}\PY{p}{,} \PY{n}{tweet} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tweets}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{k}{if} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{index}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n}{neu\PYZus{}tweets} \PY{o}{=} \PY{p}{[} \PY{n}{tweet} \PY{k}{for} \PY{n}{index}\PY{p}{,} \PY{n}{tweet} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tweets}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{k}{if} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{index}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n}{neg\PYZus{}tweets} \PY{o}{=} \PY{p}{[} \PY{n}{tweet} \PY{k}{for} \PY{n}{index}\PY{p}{,} \PY{n}{tweet} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tweets}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{k}{if} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{index}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{l+m+mi}{0}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} We print percentages:}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Percentage of positive tweets: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{pos\PYZus{}tweets}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tweets}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Percentage of neutral tweets: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{neu\PYZus{}tweets}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tweets}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Percentage de negative tweets: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{neg\PYZus{}tweets}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tweets}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Percentage of positive tweets: 59.0\%
+Percentage of neutral tweets: 24.0\%
+Percentage de negative tweets: 17.0\%
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
